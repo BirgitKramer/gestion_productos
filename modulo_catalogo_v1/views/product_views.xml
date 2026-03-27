@@ -1,0 +1,14 @@
+<odoo>
+    <record id="product_template_form_inherit_catalogo" model="ir.ui.view">
+        <field name="name">product.template.form.catalogo</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Insertar después del campo 'sale_ok' en la pestaña General -->
+            <xpath expr="//field[@name='sale_ok']" position="after">
+                <field name="clasificacion_abc"/>
+                <field name="margen_minimo"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

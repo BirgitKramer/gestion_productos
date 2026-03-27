@@ -1,0 +1,14 @@
+<odoo>
+    <record id="product_template_form_inherit_catalogo" model="ir.ui.view">
+        <field name="name">product.template.form.catalogo</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_ok']" position="after">
+                <!-- required="1" refleja los cambios del modelo v1.1 -->
+                <field name="clasificacion_abc" required="1"/>
+                <field name="margen_minimo"     required="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
