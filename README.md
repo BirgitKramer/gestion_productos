@@ -74,12 +74,12 @@ LIMIT  10;
 
 ```bash
 # Subir v2 SIN el script de migración (simulamos actualización descuidada)
-scp -r modulo_catalogo_v2 user@IP:/tmp/modulo_catalogo_nuevo
-ssh -t user@IP "
-  sudo rm -rf /opt/odoo/custom_addons/modulo_catalogo && \
-  sudo mv /tmp/modulo_catalogo_nuevo /opt/odoo/custom_addons/modulo_catalogo && \
-  sudo rm -rf /opt/odoo/custom_addons/modulo_catalogo/migrations && \
-  sudo chown -R odoo:odoo /opt/odoo/custom_addons/modulo_catalogo
+
+ssh -t user@192.168.1.76 "
+  sudo rm -rf /opt/odoo/odoo/custom_addons/modulo_catalogo && \
+  sudo mv /tmp/modulo_catalogo_nuevo /opt/odoo/odoo/custom_addons/modulo_catalogo && \
+  sudo rm -rf /opt/odoo/odoo/custom_addons/modulo_catalogo/migrations && \
+  sudo chown -R odoo:odoo /opt/odoo/odoo/custom_addons/modulo_catalogo
 "
 ```
 
@@ -103,15 +103,15 @@ La interfaz muestra un error rojo genérico. El módulo queda inconsistente:
 
 ```bash
 # Subir v2 completa, incluyendo migrations/
-scp -r modulo_catalogo_v2 user@IP:/tmp/modulo_catalogo_nuevo
-ssh -t user@IP "
-  sudo rm -rf /opt/odoo/custom_addons/modulo_catalogo && \
-  sudo mv /tmp/modulo_catalogo_nuevo /opt/odoo/custom_addons/modulo_catalogo && \
-  sudo chown -R odoo:odoo /opt/odoo/custom_addons/modulo_catalogo
+scp -r modulo_catalogo_v2 user@192.168.1.76:/tmp/modulo_catalogo_nuevo
+ssh -t user@192.168.1.76 "
+  sudo rm -rf /opt/odoo/odoo/custom_addons/modulo_catalogo && \
+  sudo mv /tmp/modulo_catalogo_nuevo /opt/odoo/odoo/custom_addons/modulo_catalogo && \
+  sudo chown -R odoo:odoo /opt/odoo/odoo/custom_addons/modulo_catalogo
 "
 
 # Actualizar con CLI
-ssh -t user@IP "sudo -u odoo /opt/odoo/odoo-bin -c /etc/odoo.conf -d odoo19 -u modulo_catalogo"
+ssh -t user@192.168.1.76 "sudo -u odoo /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo19 -u modulo_catalogo"
 ```
 
 **Lo que ocurre paso a paso:**
