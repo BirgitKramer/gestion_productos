@@ -169,23 +169,21 @@ dropdb --if-exists odoo19 && createdb odoo19
 
 ---
 
-  ## Si queremos forzar el idioma
+## Si queremos forzar el idioma
 ```bash
-# Borrar y recrear la base de datos
+# 1. Borrar y recrear la base de datos
 dropdb --if-exists odoo19 && createdb -O odoo odoo19
 
-# Instalar base con idioma español
+# 2. Instalar base
 ./odoo -c /etc/odoo/odoo.conf \
   --addons-path=/opt/odoo/odoo/odoo/addons,/opt/odoo/odoo/addons,/opt/odoo/odoo/custom_addons \
   -d odoo19 \
   -i base \
-  --load-language=es_ES \
-  --language=es_ES \
   --stop-after-init
 
-# Cargar datos demo
+# 3. Cargar idioma español
+./odoo i18n loadlang -c /etc/odoo/odoo.conf -d odoo19 -l es_ES
+
+# 4. Cargar datos demo
 ./odoo module force-demo -c /etc/odoo/odoo.conf -d odoo19
 ```
-
-
-
