@@ -141,3 +141,31 @@ WHERE  clasificacion_abc IS NULL OR margen_minimo <= 0;
 | CHECK constraint con NULL       | ❌ CheckViolation  | ✅ Datos migrados antes |
 | CHECK constraint con 0.0        | ❌ CheckViolation  | ✅ Datos migrados antes |
 | Estado BD si falla              | ⚠️ Inconsistente  | ✅ Rollback limpio      |
+---
+
+
+# Metodo para borrar BBDD y crear un nueva en Odoo desde la linea de comando
+## Deten Odoo primero si esta corriendo
+```bash
+sudo systemctl stop odoo
+```
+## Borrar y crear la nueva base de datos demo
+### "ejecutar odoo bin" (asegurarno que estamos en el directorio correcto)
+```bash
+# Drop if exists, then recreate
+dropdb --if-exists odoo19 && createdb odoo19
+
+# Install base module
+./odoo -c /etc/odoo/odoo.conf \
+  --addons-path=/opt/odoo/odoo/custom_addons, /usr/lib/python3/dist-packages/addons, /usr/lib/python3/dist-packages/odoo/addons \
+  - d odoo19 \
+  -i base \
+  --stop-after-init
+
+  # Load demo data
+  ./odoo module force-demo -c /etc/odoo/odoo.conf -d odoo19
+
+  ---
+
+
+
